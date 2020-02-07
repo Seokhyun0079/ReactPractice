@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const MyComponent = ({name, favoriteNumber ,children}) => {
-    return <div>hello, My Name is {name}<br/>
-    clidren is {children}<br/>
-    my favorite Number is {favoriteNumber}
-    </div>;
+class MyComponent extends Component{
+    render(){
+        const {name, favoriteNumber, children}
+        = this.props;
+        return (<div>
+            hello, my name is {name}<br/>
+            children's value is {children}
+            My favorite number is {favoriteNumber}
+        </div>);
+    }
 }
 
 MyComponent.defaultProps = {
