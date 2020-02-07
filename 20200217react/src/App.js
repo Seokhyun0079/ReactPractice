@@ -1,13 +1,9 @@
 import React from 'react';
 import './App.css';
+import MyComponent from './MyComponent';
 
-function App() {
-  const name = 'react';
-  return (
-    <div className="react">
-      {name}
-    </div>
-  );
+const App = () => {
+  return <MyComponent name="React" favoriteNumber={1}>React</MyComponent>; 
 }
 
 export default App;
