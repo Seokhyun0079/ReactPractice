@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import EvnetPractice from './EventPractice';
+import ValidationSample from './ValidationSample';
 
 const App = () => {
-  return <EvnetPractice/>;
+  return <ValidationSample/>;
 }
 
 export default App;
