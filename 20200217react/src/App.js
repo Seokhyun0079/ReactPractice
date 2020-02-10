@@ -1,9 +1,16 @@
 import React from 'react';
 import './App.css';
-import ValidationSample from './ValidationSample';
+import ScrollBox from './ScrollBox';
 
 const App = () => {
-  return <ValidationSample/>;
+  return (
+    <div>
+      <ScrollBox ref= {(ref) => this.scrollBox = ref}/>
+      <button onClick={() => this.scrollBox.scrollToBottom()}>
+        一番下へ
+      </button>
+    </div>
+  );  
 }
 
 export default App;
