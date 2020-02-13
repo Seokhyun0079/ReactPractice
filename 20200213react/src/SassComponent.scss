@@ -2,8 +2,12 @@
 
 .SassComponent{
     display : flex;
+    background: $oc-gray-2;
+    @include media('<768px'){
+        background: $oc-gray-9;
+    }
     .box{
-        background: red;
+        background: $red;
         cursor: pointer;
         transition: all 0.3s ease-in;
         &.red{
