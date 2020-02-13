@@ -2,7 +2,7 @@ import React from 'react';
 import styled, {css} from 'styled-components';
 
 const sizes = {
-    dtesktop : 1024,
+    desktop : 1024,
     tablet : 768
 }
 
