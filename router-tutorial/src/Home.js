@@ -1,4 +1,4 @@
-import Reacct from 'react';
+import React from 'react';
 
 
 const Home = () =>{
@@ -7,7 +7,7 @@ const Home = () =>{
             <h1>ホーム</h1>
             <p>ホーム、そのページは最初に見せられるページ</p>
         </div>
-    )
+    );
 }
 
 export default Home;
