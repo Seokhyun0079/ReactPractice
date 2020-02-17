@@ -8,10 +8,10 @@ const Profiles = () =>{
             <h3>使用者目録:</h3>
             <ul>
                 <li>
-                    <NavLink to="/profile/verlopert" active>verlopert</NavLink>
+                    {/* <NavLink to="/profile/verlopert" active>verlopert</NavLink> */}
                 </li>
                 <li>
-                    <NavLink to="/profile/gildong">gildong</NavLink>
+                    {/* <NavLink to="/profile/gildong">gildong</NavLink> */}
                 </li>
             </ul>
             <Route
