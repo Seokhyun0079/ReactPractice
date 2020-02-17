@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from "react-router-dom"
+import { Route, Link, Switch } from "react-router-dom"
 import About from './About';
 import Home from './Home';
 import Profile from './Profile';
@@ -19,11 +19,19 @@ const App = () =>{
         <Link to="/profiles">profiles</Link>
       </ul>
       <hr/>
+      <Switch>
       <Route path="/" component = {Home} exact = {true}/>
       <Route path={["/about", '/info']} component = { About}/>
       <Route path = "/profile/:username" component={Profile}/>
       <Route path = "/profiles" component={Profiles}/>
       <Route path = "/history" component={HistorySample}/>
+      <Route render={({location}) =>(
+        <div>
+          <h2>this page is not exist</h2>
+          <p>{location.pathname}</p>
+        </div>
+    )}/>
+      </Switch>
     </div>
   );
 };
