@@ -25,9 +25,11 @@ function reducer(state = initialState, action) {
         toggle: !state.toggle
       };
     case INCREASE:
+      0;
+      console.log(state.counter + action.differnce);
       return {
         ...state,
-        counter: state.coutner + action.differnce
+        counter: state.counter + action.differnce
       };
     case DECREASE:
       return {
@@ -49,6 +51,20 @@ const render = () => {
     divToggle.classList.remove("active");
   }
   counter.innerText = state.counter;
+};
+divToggle.onclick = () => {
+  console.log("divToggle onclick");
+  store.dispatch(toggleSwitch());
+};
+
+btnIncrease.onclick = () => {
+  console.log("btnIncrease onclick");
+  store.dispatch(increase(1));
+};
+
+btnDecrease.onclick = () => {
+  console.log("btnDecrease onclick");
+  store.dispatch(decrease());
 };
 
 render();
