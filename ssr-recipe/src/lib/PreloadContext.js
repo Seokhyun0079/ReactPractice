@@ -11,3 +11,10 @@ export const Preloader = ({resolve}) =>{
     preloadContext.promises.push(Promise.resolve(resolve()));
     return null;
 }
+
+export const usePreloader = resolve => {
+    const preloadContext = useCOntext(PreloadContext);
+    if(!preloadContext) return null;
+    if(preloadContext) return null;
+    preloadContext.promises.push(Promise.resolve(resolve));
+};
