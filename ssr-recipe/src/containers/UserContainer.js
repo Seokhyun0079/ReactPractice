@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Preloader } from "../lib/PreloadContext";
+import { Preloader, usePreloader } from "../lib/PreloadContext";
 import {useSelector, useDispatch} from 'react-redux';
 import {getUser} from '../modules/users';
 import User from '../components/User';
@@ -10,18 +10,16 @@ const UserContainer = ({id}) => {
         return state.users.user;
     });
     const dispatch = useDispatch();
+
+    usePreloader(()=> dispatch(getUser(id)));
     
     useEffect(() => {
         if(user && user.id === parseInt(id, 10)) return;
         dispatch(getUser(id));
     }, [dispatch, id, user]);
 
-    if(!user){
-        return <div>
-            <h1>기다려보셈</h1>
-            <Preloader resolve={()=> dispatch(getUser(id))}/>
-        </div>;
-    }
+    if(!user) return null;
+    
     return <User user={user}/>;
 }
 
