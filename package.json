@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.9.11",
     "react-router-dom": "^5.1.2"
   }
 }
