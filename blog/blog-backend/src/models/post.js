@@ -7,7 +7,7 @@ const PostSchema = new Schema({
     body : String,
     tags : [String],
     publishedDate: {
-        type : DataCue,
+        type : Date,
         default : Date.now
     },
 });
