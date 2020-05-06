@@ -77,5 +77,6 @@ export const check = async ctx =>{
 };
 
 export const logout = async ctx=>{
-
+    ctx.cookies.set('access_token');
+    ctx.status = 204;
 };
