@@ -36,6 +36,8 @@ const editor = () => {
   const quilElement = userRef(null);
   const quilInstance = useRef(null);
   useEffect(() => {
-    quilInstance.current = new Quill(quilElement.current, {});
+    quilInstance.current = new Quill(quilElement.current, {
+      theme: 'bubble',
+    });
   });
 };
