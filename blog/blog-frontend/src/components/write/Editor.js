@@ -32,12 +32,32 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const editor = () => {
+const Editor = () => {
   const quilElement = userRef(null);
   const quilInstance = useRef(null);
   useEffect(() => {
     quilInstance.current = new Quill(quilElement.current, {
       theme: 'bubble',
+      placeholder: '내용을 작성하세요...',
+      modules: {
+        toolbar: [
+          [{ hader: '1' }, { hader: '2' }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'code-block', 'link', 'image'],
+        ],
+      },
     });
-  });
+  }, []);
+
+  return (
+    <EditorBlock>
+      <TitleInput placeholder="제목을 입력하세요" />
+      <QuillWrapper>
+        <div ref={quilElement} />
+      </QuillWrapper>
+    </EditorBlock>
+  );
 };
+
+export default Editor;
