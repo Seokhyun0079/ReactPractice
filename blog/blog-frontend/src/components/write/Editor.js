@@ -1,4 +1,4 @@
-import React, { useRef, userEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import styled from 'styled-components';
@@ -33,7 +33,7 @@ const QuillWrapper = styled.div`
 `;
 
 const Editor = () => {
-  const quilElement = userRef(null);
+  const quilElement = useRef(null);
   const quilInstance = useRef(null);
   useEffect(() => {
     quilInstance.current = new Quill(quilElement.current, {
