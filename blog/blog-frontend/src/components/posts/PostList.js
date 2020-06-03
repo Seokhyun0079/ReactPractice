@@ -52,3 +52,11 @@ const Tags = styled.div`
     display: inline-block;
   }
 `;
+
+const PostItem = () => {
+  return (
+    <PostItemBlock>
+      <h2>제목</h2>
+    </PostItemBlock>
+  );
+};
