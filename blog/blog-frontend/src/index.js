@@ -17,8 +17,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
-sagaMiddleware.run(rootSaga);
-
 function loadUser() {
   try {
     const user = localStorage.getItem('user');

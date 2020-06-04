@@ -18,7 +18,7 @@ const SubInfoBlock = styled.div`
 `;
 
 
-const SubInfo ({username, publishedDate, hasMarginTop}) => {
+const SubInfo = ({username, publishedDate, hasMarginTop}) => {
     return (
         <SubInfoBlock hasMarginTop ={hasMarginTop}>
             <span>
