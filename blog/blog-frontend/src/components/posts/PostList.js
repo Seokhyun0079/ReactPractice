@@ -57,6 +57,7 @@ const Tags = styled.div`
 const PostItem = ({ post }) => {
   const { publishedDate, user, tags, title, body, _id } = post;
 //ㄴㅇㄹㄴㅁ
+if(user){
   return (
     <PostItemBlock>
       <h2>
@@ -71,6 +72,11 @@ const PostItem = ({ post }) => {
       <p>{body}</p>
     </PostItemBlock>
   );
+}
+return (
+  <>
+  </>
+);
 };
 
 const PostList = ({ posts, loading, error, showWriteButton }) => {
