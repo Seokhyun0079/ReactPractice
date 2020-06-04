@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -53,10 +54,47 @@ const Tags = styled.div`
   }
 `;
 
-const PostItem = () => {
+const PostItem = ({ post }) => {
+  const { publishedDate, user, tags, title, body, _id } = post;
+
   return (
     <PostItemBlock>
-      <h2>제목</h2>
+      <h2>
+        <Link to={`/@${user.username}/${_id}`}>{title}</Link>
+      </h2>
+      <SubInfo
+        username={user.username}
+        publishedDate={new Date(publishedDate)}
+      />
+
+      <Tags tags={tags} />
+      <p>{body}</p>
     </PostItemBlock>
   );
 };
+
+const PostList = ({ posts, loading, error, showWriteButton }) => {
+  if (error) {
+    return <PostItemBlock>에러가 발생했습니다</PostItemBlock>;
+  }
+  return (
+    <PostListBlock>
+      <WritePostButtonWrapper>
+        {showWriteButton && (
+          <Button cyan to="/write">
+            새 글 작성하기
+          </Button>
+        )}
+      </WritePostButtonWrapper>
+      {!loading && posts && (
+        <div>
+          {posts.map((post) => (
+            <PostItem post={post} key={post._id} />
+          ))}
+        </div>
+      )}
+    </PostListBlock>
+  );
+};
+
+export default PostList;
