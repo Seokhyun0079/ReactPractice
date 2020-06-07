@@ -1,8 +1,32 @@
 import Post from '../../models/post';
 import mongoose from 'mongoose';
 import Joi from 'joi';
+import sanitizeHtml from 'sanitize-html';
 
 const { ObjectId } = mongoose.Types;
+
+const sanitizeOption ={
+    allowedTags: [
+        'h1',
+        'h2',
+        'b',
+        'i',
+        'u',
+        's',
+        'p',
+        'ul',
+        'li',
+        'blockquote',
+        'a',
+        'img'
+    ],
+    allowedAttributes:{
+        a:['href', 'name', 'target'],
+        img:['src'],
+        li:['class'],
+    },
+    allowedSchemes : ['data', 'http'],
+}
 
 export const checkObjectId = (ctx, next) => {
     const { id} = ctx.params;
@@ -29,7 +53,7 @@ export const write = async ctx => {
     const { title, body, tags} = ctx.request.body;
     const post = new Post({
         title,
-        body,
+        body : sanitizeHtml(body, sanitizeOption),
         tags,
         user : ctx.state.user
     });
@@ -59,7 +83,7 @@ export const list = async ctx => {
         ctx.body = posts.map( post => ({
             ...post,
             body:
-            post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+            removeHtmlAndShorten(post.body)
         }));
     }catch(e){
         ctx.throw(500, e);
@@ -92,9 +116,12 @@ export const update = async ctx=> {
         ctx.body = result.error;
         return;
     }
-
+    const nextData = {...ctx.request.body};
+    if(nextData.body){
+        nextData.body = sanitizeHtml(nextData.body);
+    }
     try{
-        const post = await Post.findByIdAndUpdate(id, ctx.request.body,{
+        const post = await Post.findByIdAndUpdate(id, nextData, {
             new:true,
         }).exec();
         if(!post){
@@ -136,3 +163,11 @@ export const checkOwnPost = (ctx, next) => {
     }
     return next();
 }
+
+const removeHtmlAndShorten = body =>{
+    const filtered = sanitizeHtml(body, {
+        allowedTags : [],
+    });
+    return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`;
+}
+

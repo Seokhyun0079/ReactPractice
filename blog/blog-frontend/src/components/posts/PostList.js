@@ -56,7 +56,6 @@ const Tags = styled.div`
 
 const PostItem = ({ post }) => {
   const { publishedDate, user, tags, title, body, _id } = post;
-//ㄴㅇㄹㄴㅁ
 if(user){
   return (
     <PostItemBlock>
