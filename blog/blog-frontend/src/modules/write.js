@@ -1,19 +1,21 @@
-import { createAction, handleActions } from 'redux-actions';
+import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
-} from '../lib/createRequestSaga';
+} from "../lib/createRequestSaga";
 
-import * as postsAPI from '../lib/api/posts';
-import { takeLatest } from 'redux-saga/effects';
+import * as postsAPI from "../lib/api/posts";
+import { takeLatest } from "redux-saga/effects";
 
-const INITIALIZE = 'write/INITIALIZE';
-const CHANGE_FIELD = 'write/CHANGE_FIELD';
+const INITIALIZE = "write/INITIALIZE";
+const CHANGE_FIELD = "write/CHANGE_FIELD";
+const SET_ORIGIN_POST = "write/SET_ORIGIN_POST";
+export const setOriginalPost = createAction(SET_ORIGIN_POST, (post) => post);
 
 const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
   WRITE_POST_FAILURE,
-] = createRequestActionTypes('write/WRITE_POST');
+] = createRequestActionTypes("write/WRITE_POST");
 
 export const initialize = createAction(INITIALIZE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -34,11 +36,12 @@ export function* writeSaga() {
 }
 
 const initialState = {
-  title: '',
-  body: '',
+  title: "",
+  body: "",
   tags: [],
   post: null,
   postError: null,
+  orginalPostId: null,
 };
 
 const write = handleActions(
@@ -61,8 +64,15 @@ const write = handleActions(
       ...state,
       postError,
     }),
+    [SET_ORIGIN_POST]: (state, { payload: post }) => ({
+      ...state,
+      title: post.title,
+      body: post.body,
+      tags: post.tags,
+      orginalPostId: post._id,
+    }),
   },
-  initialState,
+  initialState
 );
 
 export default write;

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import Responsive from '../common/Responsive';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../lib/styles/palette";
+import Responsive from "../common/Responsive";
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -24,7 +24,7 @@ const SubInfo = styled.div`
   span + span :before {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    content: '\\B7';
+    content: "\\B7";
   }
 `;
 
@@ -46,7 +46,7 @@ const PostContent = styled.div`
   color: ${palette.gray[8]};
 `;
 
-const PostViewer = ({ post, error, loading }) => {
+const PostViewer = ({ post, error, loading, actionButtons }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>;
@@ -68,6 +68,7 @@ const PostViewer = ({ post, error, loading }) => {
         />
         <Tags tags={tags}></Tags>
       </PostHead>
+      {actionButtons}
       <PostContent dangerouslySetInnerHTML={{ __html: body }} />
     </PostViewerBlock>
   );

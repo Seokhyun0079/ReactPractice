@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react';
-import Quill from 'quill';
-import 'quill/dist/quill.bubble.css';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import Responsive from '../common/Responsive';
+import React, { useRef, useEffect } from "react";
+import Quill from "quill";
+import "quill/dist/quill.bubble.css";
+import styled from "styled-components";
+import palette from "../../lib/styles/palette";
+import Responsive from "../common/Responsive";
 
 const EditorBlock = styled(Responsive)`
   padding-top: 5rem;
@@ -37,27 +37,34 @@ const Editor = ({ title, body, onChangeField }) => {
   const quilInstance = useRef(null);
   useEffect(() => {
     quilInstance.current = new Quill(quilElement.current, {
-      theme: 'bubble',
-      placeholder: '내용을 작성하세요...',
+      theme: "bubble",
+      placeholder: "내용을 작성하세요...",
       modules: {
         toolbar: [
-          [{ hader: '1' }, { hader: '2' }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'code-block', 'link', 'image'],
+          [{ hader: "1" }, { hader: "2" }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["blockquote", "code-block", "link", "image"],
         ],
       },
     });
     const quill = quilInstance.current;
-    quill.on('text-change', (delta, oldDelta, source) => {
-      if (source === 'user') {
-        onChangeField({ key: 'body', value: quill.root.innerHTML });
+    quill.on("text-change", (delta, oldDelta, source) => {
+      if (source === "user") {
+        onChangeField({ key: "body", value: quill.root.innerHTML });
       }
     });
   }, [onChangeField]);
 
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (mounted.current) return;
+    mounted.current = true;
+    quilInstance.current.root.innerHTML = body;
+  }, [body]);
+
   const onChangeTitle = (e) => {
-    onChangeField({ key: 'title', value: e.target.value });
+    onChangeField({ key: "title", value: e.target.value });
   };
 
   return (
