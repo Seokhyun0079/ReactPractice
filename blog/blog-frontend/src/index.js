@@ -1,31 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer, { rootSaga } from './modules';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { Provider } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
-import { tempSetUser, check } from './modules/user';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer, { rootSaga } from "./modules";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import createSagaMiddleware from "redux-saga";
+import { tempSetUser, check } from "./modules/user";
+import { HelmetProvider } from "react-helmet-async";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 function loadUser() {
   try {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     if (!user) return;
 
     store.dispatch(tempSetUser(user));
     store.dispatch(check());
   } catch (e) {
-    console.log('localStroage is not wriking');
+    console.log("localStroage is not wriking");
   }
 }
 
@@ -35,10 +36,12 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
